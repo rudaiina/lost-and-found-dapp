@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Decentralized Lost & Found Recovery</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Ethers.js v6 Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
+</head>
+<body>
+  <!-- Navigation Header -->
+  <header class="navbar">
+    <div class="brand">
+      <span class="brand-icon">🔍</span>
+      <h1>Lost & Found Recovery DApp</h1>
+    </div>
+    <button id="connectWalletBtn" class="btn btn-primary" onclick="connectWallet()">Connect MetaMask</button>
+  </header>
+
+  <div class="container">
+    <!-- Notification Banner -->
+    <div id="notification" class="notification hidden"></div>
+
+    <!-- Wallet & Network Status -->
+    <section class="card status-panel">
+      <h2>Wallet Status</h2>
+      <div class="status-grid">
+        <div class="status-item">
+          <span class="label">Status:</span>
+          <span id="walletStatusBadge" class="badge badge-disconnected">Disconnected</span>
+        </div>
+        <div class="status-item">
+          <span class="label">Connected Account:</span>
+          <span id="walletAddress" class="value">Not Connected</span>
+        </div>
+        <div class="status-item">
+          <span class="label">Network:</span>
+          <span id="networkName" class="badge badge-warning">Unknown</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Report Lost Item Form -->
+    <section class="card report-panel">
+      <h2>📢 Report a Lost Item & Deposit Bounty</h2>
+      <p class="subtitle">Lock test ETH bounty into the smart contract. The bounty is released only when you confirm return.</p>
+      
+      <form id="reportItemForm" onsubmit="handleReportItem(event)">
+        <div class="form-group">
+          <label for="itemTitle">Item Name / Title</label>
+          <input type="text" id="itemTitle" placeholder="e.g., Dell XPS 15 Laptop" required />
+        </div>
+
+        <div class="form-group">
+          <label for="itemDescription">Description / Serial No. / Location Lost</label>
+          <textarea id="itemDescription" rows="3" placeholder="e.g., Black color, Serial: SN-98234, lost near Library Hall" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="itemBounty">Bounty Reward (in ETH)</label>
+          <input type="number" id="itemBounty" step="0.001" min="0" placeholder="e.g., 0.01" required />
+        </div>
+
+        <button type="submit" class="btn btn-success btn-block" id="reportBtn">Report Lost Item & Lock Bounty</button>
+      </form>
+    </section>
+
+    <!-- Listed Items Grid -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Registered Lost Items</h2>
+        <button class="btn btn-sm btn-outline" onclick="loadAllItems()">↻ Refresh List</button>
+      </div>
+      <div id="itemsGrid" class="items-grid">
+        <p class="placeholder-text">Please connect your MetaMask wallet to view listed items.</p>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <p>Decentralized Lost & Found Bounty System • Built on Ethereum Sepolia Testnet</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
